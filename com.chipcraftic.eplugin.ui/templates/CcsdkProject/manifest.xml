@@ -1,0 +1,7 @@
+<templateManifest>
+	<file src="/templates/CcsdkProject/Makefile"
+		dest="/${projectName}/Makefile"/>
+	<file src="/templates/CcsdkProject/main.c"
+		dest="/${projectName}/main.c"
+		open="true"/>
+</templateManifest>

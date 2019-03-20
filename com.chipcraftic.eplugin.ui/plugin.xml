@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+       point="org.eclipse.core.expressions.definitions">
+      <definition id="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+         <or>
+            <iterate ifEmpty="false">
+               <adapt type="org.eclipse.core.resources.IResource">
+                  <test
+                       property="org.eclipse.core.resources.projectNature"
+                       value="com.chipcraftic.eplugin.core.ccsdknature">
+                  </test>
+               </adapt>
+            </iterate>
+            <and>
+               <with variable="activeEditorInput">
+                  <adapt type="org.eclipse.core.resources.IResource">
+                     <test
+                        property="org.eclipse.core.resources.projectNature"
+                        value="com.chipcraftic.eplugin.core.ccsdknature">
+                     </test>
+                  </adapt>
+               </with>
+               <with variable="activePart">
+                  <instanceof value="org.eclipse.ui.IEditorPart">
+                  </instanceof>
+               </with>
+            </and>
+         </or>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+           name="CCSDK"
+           id="com.chipcraftic.eplugin.ui.commands.category">
+      </category>
+      <command
+	        id="com.chipcraftic.eplugin.ui.commands.clean"
+	        name="CC Clean"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.reset"
+	        name="CC Reset"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.makeall"
+	        name="CC Make All"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.flash"
+	        name="CC Save In RAM"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.flashmem"
+	        name="CC Flash Memory"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.cleanbuild"
+	        name="CC Clean Build"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+	  <command
+	        id="com.chipcraftic.eplugin.ui.commands.term"
+	        name="CC Terminal"
+	        categoryId="com.chipcraftic.eplugin.ui.commands.category">
+	  </command>
+      
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeCleanHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.clean">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeResetHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.reset">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeAllHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.makeall">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeFlashHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.flash">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeCleanAllHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.cleanbuild">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.MakeFlashMemHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.flashmem">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="com.chipcraftic.eplugin.ui.handlers.TermHandler"
+            commandId="com.chipcraftic.eplugin.ui.commands.term">
+         <enabledWhen>
+            <reference
+                  definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+            </reference>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="com.chipcraftic.eplugin.ui.toolbar"
+               label="CCSDK Toolbar">
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.clean"
+                  icon="icons/make_clear.gif"
+                  label="Clean"
+                  tooltip="&apos;make clean&apos; in project directory.">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.makeall"
+                  icon="icons/make_all.gif"
+                  label="Build"
+                  tooltip="Build project (make all)">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.cleanbuild"
+                  icon="icons/build_again.gif"
+                  label="Rebuild project"
+                  tooltip="Rebuild project (make clean all)">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.flash"
+                  icon="icons/make_flash.gif"
+                  label="Push To RAM"
+                  tooltip="Push application to RAM memory (make ram-write)">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.flashmem"
+                  icon="icons/make_flash_mem.gif"
+                  label="Push To Flash"
+                  tooltip="Push application to flash memory (make flash-write)">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.reset"
+                  icon="icons/make_reset.gif"
+                  label="Reset"
+                  tooltip="Reset processor (make reset)">
+            </command>
+            <command
+                  commandId="com.chipcraftic.eplugin.ui.commands.term"
+                  icon="icons/serial_port.png"
+                  label="Serial Terminal"
+                  tooltip="Open terminal for communicating with processor serial port (make term)">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="com.chipcraftic.eplugin.ui.category"
+            name="CCSDK">
+      </category>
+      <wizard
+            category="com.chipcraftic.eplugin.ui.category"
+            class="com.chipcraftic.eplugin.ui.wizard.NewCcsdkProjectWizard"
+            finalPerspective="org.eclipse.cdt.ui.CPerspective"
+            hasPages="true"
+            icon="icons/cc.gif"
+            id="com.chipcraftic.eplugin.ui.newwizard"
+            name="CCSDK Project"
+            project="true">
+         <description>
+            Create a CCSDK project
+         </description>
+      </wizard>
+   </extension>
+   <extension point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.cdt.ui.CPerspective">
+         <newWizardShortcut id="com.chipcraftic.eplugin.ui.newwizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.console.consolePageParticipants">
+      <consolePageParticipant
+            class="com.chipcraftic.eplugin.ui.console.TermConsolePageParticipant"
+            id="com.chipcraftic.eplugin.ui.TermConsolePageParticipant">
+         <enablement>
+            <instanceof
+                  value="com.chipcraftic.eplugin.ui.console.TermConsole">
+            </instanceof>
+         </enablement>
+      </consolePageParticipant>
+   </extension>
+   <extension point="org.eclipse.debug.ui.launchShortcuts">
+       <shortcut
+             class="com.chipcraftic.eplugin.ui.launch.DebugShortcut"
+             description="Launch CCSDK application"
+             icon="icons/serial_port.png"
+             id="com.chipcraftic.eplugin.ui.launchShortcuts.debug"
+             label="CCSDK Application"
+             modes="debug">
+          <contextualLaunch>
+             <enablement>
+                <reference
+                   definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+                </reference>
+             </enablement>
+          </contextualLaunch>
+          <configurationType
+             id="org.eclipse.cdt.debug.gdbjtag.launchConfigurationType">
+          </configurationType>
+       </shortcut>
+       <shortcut
+             class="com.chipcraftic.eplugin.ui.launch.SimShortcut"
+             description="Launch CCSDK Simulator"
+             icon="icons/terminal.png"
+             id="com.chipcraftic.eplugin.ui.launchShortcuts.ccsim"
+             label="CCSDK Simulation"
+             modes="debug,run">
+          <contextualLaunch>
+             <enablement>
+                <reference
+                   definitionId="com.chipcraftic.eplugin.ui.hasCcsdkNature">
+                </reference>
+             </enablement>
+          </contextualLaunch>
+          <configurationType
+             id="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
+          </configurationType>
+       </shortcut>
+   </extension>
+   <extension point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+    <launchConfigurationTypeImage
+        icon="icons/terminal.png"
+        configTypeID="com.chipcraftic.eplugin.core.launch.simConfigurationType"
+        id="com.chipcraftic.eplugin.ui.launchConfigurationTypeImage.ccsim">
+    </launchConfigurationTypeImage>
+    <launchConfigurationTypeImage
+        icon="icons/serial_port.png"
+        configTypeID="com.chipcraftic.eplugin.core.launch.hwConfigurationType"
+        id="com.chipcraftic.eplugin.ui.launchConfigurationTypeImage.hw">
+    </launchConfigurationTypeImage>
+   </extension>
+   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+    <launchConfigurationTabGroup
+        type="com.chipcraftic.eplugin.core.launch.simConfigurationType"
+        class="com.chipcraftic.eplugin.ui.launch.CcTabGroup"
+        id="com.chipcraftic.eplugin.ui.launch.sim.tabGroup">
+    </launchConfigurationTabGroup>
+    <launchConfigurationTabGroup
+        type="com.chipcraftic.eplugin.core.launch.hwConfigurationType"
+        class="com.chipcraftic.eplugin.ui.launch.CcTabGroup"
+        id="com.chipcraftic.eplugin.ui.launch.hw.tabGroup">
+    </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabs">
+     <tab
+            class="org.eclipse.cdt.launch.ui.CMainTab2"
+            group="com.chipcraftic.eplugin.ui.launch.hw.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.hw.mainTab"
+            name="%launchtab.cmaintab.name">
+      </tab>
+      <tab
+            class="com.chipcraftic.eplugin.ui.launch.CcDebuggerTab"
+            group="com.chipcraftic.eplugin.ui.launch.hw.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.hw.debuggerTab"
+            name="%launchtab.debuggertab.name">
+         <placement
+               after="org.eclipse.cdt.cdi.launch.mainTab">
+         </placement>
+      </tab>
+      <tab
+            class="com.chipcraftic.eplugin.ui.launch.CcStartupTab"
+            group="com.chipcraftic.eplugin.ui.launch.hw.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.hw.startupTab"
+            name="%launchtab.startuptab.name">
+         <placement
+               after="org.eclipse.cdt.debug.gdbjtag.ui.debuggertab.dsf">
+         </placement>
+      </tab>
+      <tab
+            class="org.eclipse.debug.ui.sourcelookup.SourceLookupTab"
+            group="com.chipcraftic.eplugin.ui.launch.hw.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.hw.sourceLookupTab"
+            name="%launchTab.sourceLookup.name">
+         <placement
+               after="org.eclipse.cdt.debug.gdbjtag.ui.startuptab">
+         </placement>
+      </tab>
+      <tab
+            class="org.eclipse.debug.ui.CommonTab"
+            group="com.chipcraftic.eplugin.ui.launch.hw.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.hw.commonTab"
+            name="%launchTab.common.name">
+         <placement
+               after="org.eclipse.debug.ui.sourceLookupTab">
+         </placement>
+      </tab>
+      
+      <tab
+            class="org.eclipse.cdt.launch.ui.CMainTab2"
+            group="com.chipcraftic.eplugin.ui.launch.sim.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.sim.mainTab"
+            name="%launchtab.cmaintab.name">
+      </tab>
+      <tab
+            class="com.chipcraftic.eplugin.ui.launch.CcDebuggerTab"
+            group="com.chipcraftic.eplugin.ui.launch.sim.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.sim.debuggerTab"
+            name="%launchtab.debuggertab.name">
+         <placement
+               after="org.eclipse.cdt.cdi.launch.mainTab">
+         </placement>
+      </tab>
+      <tab
+            class="com.chipcraftic.eplugin.ui.launch.CcStartupTab"
+            group="com.chipcraftic.eplugin.ui.launch.sim.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.sim.startupTab"
+            name="%launchtab.startuptab.name">
+         <placement
+               after="org.eclipse.cdt.debug.gdbjtag.ui.debuggertab.dsf">
+         </placement>
+      </tab>
+      <tab
+            class="org.eclipse.debug.ui.sourcelookup.SourceLookupTab"
+            group="com.chipcraftic.eplugin.ui.launch.sim.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.sim.sourceLookupTab"
+            name="%launchTab.sourceLookup.name">
+         <placement
+               after="org.eclipse.cdt.debug.gdbjtag.ui.startuptab">
+         </placement>
+      </tab>
+      <tab
+            class="org.eclipse.debug.ui.CommonTab"
+            group="com.chipcraftic.eplugin.ui.launch.sim.tabGroup"
+            id="com.chipcraftic.eplugin.ui.launch.sim.commonTab"
+            name="%launchTab.common.name">
+         <placement
+               after="org.eclipse.debug.ui.sourceLookupTab">
+         </placement>
+      </tab>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.chipcraftic.eplugin.ui.options.CcsdkOptionsPropertyPage"
+            id="com.chipcraftic.eplugin.ui.ccsdkOptionsPropertyPage"
+            name="CCSDK Options">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="com.chipcraftic.eplugin.ui.CcStartup">
+      </startup>
+   </extension>
+</plugin>

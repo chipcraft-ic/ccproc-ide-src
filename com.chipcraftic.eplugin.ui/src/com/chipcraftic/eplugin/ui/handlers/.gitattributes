@@ -1,0 +1,10 @@
+AbstractProjectBasedHandler.java svn-properties=svn:keywords=Date Revision
+MakeResetHandler.java svn-properties=svn:keywords=Date Revision
+MakeCleanAllHandler.java svn-properties=svn:keywords=Date Revision
+TermHandler.java svn-properties=svn:keywords=Date Revision
+MakeCleanHandler.java svn-properties=svn:keywords=Date Revision
+MakeAllHandler.java svn-properties=svn:keywords=Date Revision
+MakeFlashMemHandler.java svn-properties=svn:keywords=Date Revision
+MakeDebugServerHandler.java svn-properties=svn:keywords=Date Revision
+MakeFlashHandler.java svn-properties=svn:keywords=Date Revision
+AbstractMakeBasedHandler.java svn-properties=svn:keywords=Date Revision

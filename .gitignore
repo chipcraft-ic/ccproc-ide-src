@@ -1,0 +1,12 @@
+# Eclipse
+bin
+
+# Mac
+.DS_Store
+
+# SVN
+.svn
+
+# Temporary
+*~
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="ccsdknature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="com.chipcraftic.eplugin.core.ProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+          id="com.chipcraftic.eplugin.core.launch.simConfigurationType"
+          modes="run, debug"
+          name="CCSDK Simulator">        
+      </launchConfigurationType>
+      <launchConfigurationType
+          id="com.chipcraftic.eplugin.core.launch.hwConfigurationType"
+          modes="debug"
+          name="CCSDK Hardware">        
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchDelegates">
+      <launchDelegate
+            delegate="com.chipcraftic.eplugin.core.launch.SimLaunchDelegate"
+            id="com.chipcraftic.eplugin.launch.simLaunchDelegate"
+            modes="run, debug"
+            name="CCSDK Simulator Delegate"
+            sourceLocatorId="org.eclipse.cdt.debug.core.sourceLocator"
+            sourcePathComputerId="org.eclipse.cdt.debug.core.sourcePathComputer"
+            type="com.chipcraftic.eplugin.core.launch.simConfigurationType">
+      </launchDelegate>
+      <launchDelegate
+            delegate="com.chipcraftic.eplugin.core.launch.CcHwLaunchDelegate"
+            id="com.chipcraftic.eplugin.launch.hwLaunchDelegate"
+            modes="debug"
+            name="CCSDK Hardware Delegate"
+            sourceLocatorId="org.eclipse.cdt.debug.core.sourceLocator"
+            sourcePathComputerId="org.eclipse.cdt.debug.core.sourcePathComputer"
+            type="com.chipcraftic.eplugin.core.launch.hwConfigurationType">
+      </launchDelegate>
+   </extension>
+   <extension
+         point="org.eclipse.cdt.debug.gdbjtag.core.JTagDevice">
+         <device
+            class="com.chipcraftic.eplugin.core.launch.CcDeviceConnection"
+            id="com.chipcraftic.eplugin.core.launch.ccDeviceConnection"
+            name="CC Device">
+      </device>
+   </extension>
+   <extension point="org.eclipse.core.variables.dynamicVariables">
+    <variable
+       name="ccsdk_loc"
+       resolver="com.chipcraftic.eplugin.core.SdkLocResolver"
+       description="Location of CCSDK"
+       supportsArgument="false">
+    </variable>
+  </extension>
+ 
+</plugin>
